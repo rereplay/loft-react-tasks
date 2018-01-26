@@ -4,34 +4,38 @@ import "./App.css";
 
 class App extends Component {
   state = {
-    posts: [],
-    value: ""
+    news: [],
+    newsInput: ""
   };
 
   handleChange = e => {
     this.setState({
-      value: e.target.value
+      newsInput: e.target.value
     });
   };
 
-  handleClick = e => {
-    let { value, posts } = this.state;
-    posts.push(value);
+  handleNewPost = e => {
+    let { news, newsInput } = this.state;
+    news.push({text: newsInput});
     this.setState({
-      posts: posts,
-      value: ""
+      news: news,
+      newsInput: ""
     });
   };
 
   render() {
-    let posts = this.state.posts.map((post, index) => {
-      return <NewsPost post={post} key={index}/>;
+    let news = this.state.news.map((post, index) => {
+      return <NewsPost text={post.text} key={index} />;
     });
     return (
       <div className="App">
-        <input className="todo-input" onChange={this.handleChange} value={this.state.value} />
-        <button onClick={this.handleClick}>Опубликовать</button>
-        {posts}
+        <input
+          className="todo-input"
+          onChange={this.handleChange}
+          value={this.state.newsInput}
+        />
+        <button onClick={this.handleNewPost}>Опубликовать</button>
+        {news}
       </div>
     );
   }

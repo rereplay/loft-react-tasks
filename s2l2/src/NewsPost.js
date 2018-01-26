@@ -3,7 +3,7 @@ import "./NewsPost.css";
 
 class NewsPost extends Component {
   render() {
-    return <div className="news-post">{this.props.post}</div>;
+    return <p className="news-post">{this.props.text}</p>;
   }
 }
 
