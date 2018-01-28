@@ -44,6 +44,24 @@ class App extends Component {
     );
   };
 
+  renderSteps = () => {
+    let steps = ["Personal information", "Card information", "Finish"].map(
+      (title, index) => {
+        return (
+          <Step
+            key={index}
+            number={index + 1}
+            title={title}
+            onClick={this.handleTabClick}
+            isClickable={this.state.step > index + 1}
+            isSelected={this.state.step === index + 1}
+          />
+        );
+      }
+    );
+    return steps;
+  };
+
   renderForm = () => {
     let { step, firstName, lastName, email, cardNumber } = this.state;
     if (step === 1) {
@@ -68,23 +86,9 @@ class App extends Component {
   };
 
   render() {
-    let steps = ["Personal information", "Card information", "Finish"].map(
-      (title, index) => {
-        return (
-          <Step
-            key={index}
-            number={index + 1}
-            title={title}
-            onClick={this.handleTabClick}
-            isClickable={this.state.step !== index + 1}
-            isSelected={this.state.step === index + 1}
-          />
-        );
-      }
-    );
     return (
       <div className="container">
-        <div className="tab-panel">{steps}</div>
+        <div className="tab-panel">{this.renderSteps()}</div>
         <div className="form-content">{this.renderForm()}</div>
         <div className="button-panel">
           <button
