@@ -68,31 +68,23 @@ class App extends Component {
   };
 
   render() {
+    let steps = ["Personal information", "Card information", "Finish"].map(
+      (title, index) => {
+        return (
+          <Step
+            key={index}
+            number={index + 1}
+            title={title}
+            onClick={this.handleTabClick}
+            isClickable={this.state.step !== index + 1}
+            isSelected={this.state.step === index + 1}
+          />
+        );
+      }
+    );
     return (
       <div className="container">
-        <div className="tab-panel">
-          <Step
-            number={1}
-            title="Personal information"
-            onClick={this.handleTabClick}
-            isClickable={this.state.step !== 1}
-            isSelected={this.state.step === 1}
-          />
-          <Step
-            number={2}
-            title="Card information"
-            onClick={this.handleTabClick}
-            isClickable={this.state.step !== 2}
-            isSelected={this.state.step === 2}
-          />
-          <Step
-            number={3}
-            title="Finish"
-            onClick={this.handleTabClick}
-            isClickable={this.state.step !== 3}
-            isSelected={this.state.step === 3}
-          />
-        </div>
+        <div className="tab-panel">{steps}</div>
         <div className="form-content">{this.renderForm()}</div>
         <div className="button-panel">
           <button
