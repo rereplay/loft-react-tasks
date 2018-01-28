@@ -14,7 +14,7 @@ class Step extends Component {
         onClick={this.handleClick}
       >
         <div className="step__number">{this.props.number}</div>
-        <div className="step__title">{this.props.title}</div>
+        <div className="step__title">{this.props.children}</div>
       </div>
     );
   }

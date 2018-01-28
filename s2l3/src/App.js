@@ -51,11 +51,12 @@ class App extends Component {
           <Step
             key={index}
             number={index + 1}
-            title={title}
             onClick={this.handleTabClick}
             isClickable={this.state.step > index + 1}
             isSelected={this.state.step === index + 1}
-          />
+          >
+            {title}
+          </Step>
         );
       }
     );
