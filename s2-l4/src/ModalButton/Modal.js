@@ -7,7 +7,7 @@ class Modal extends Component {
         <div className="modal__fog">
           <div className="modal__body">
             <h1>Модальное окно</h1>
-            <button onClick={this.props.onClick}>Закрыть</button>
+            <button onClick={this.props.onClick}>Close</button>
           </div>
         </div>
       </div>

@@ -22,7 +22,7 @@ class ModalButton extends Component {
   render() {
     return (
       <div>
-        <button onClick={this.showModal}>Открыть модальное окно</button>
+        <button onClick={this.showModal}>Show modal!</button>
         {this.state.isModalShow &&
           ReactDOM.createPortal(
             [<Modal onClick={this.hideModal} />],

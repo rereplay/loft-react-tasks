@@ -7,8 +7,6 @@ class VideoPlayer extends Component {
     this.state = {};
   }
 
-  static displayName = "Video";
-
   playVideo = () => {
     this.videoSource.play();
   };
