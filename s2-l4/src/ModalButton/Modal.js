@@ -1,16 +1,10 @@
-import React, { Component } from "react";
+import { Component } from "react";
+import ReactDOM from "react-dom";
 
 class Modal extends Component {
   render() {
     return (
-      <div className="modal">
-        <div className="modal__fog">
-          <div className="modal__body">
-            <h1>Модальное окно</h1>
-            <button onClick={this.props.onClick}>Close</button>
-          </div>
-        </div>
-      </div>
+      ReactDOM.createPortal(this.props.children, document.getElementById("portal"))
     );
   }
 }
