@@ -62,7 +62,8 @@ class App extends Component {
               );
             }}
           />
-          <Route path="/" component={Home} />
+          <Route exact path="/" component={Home} />
+          <Redirect path="*" to="/" />
         </Switch>
       </div>
     );
