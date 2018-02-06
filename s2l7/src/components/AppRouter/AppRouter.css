@@ -1,0 +1,17 @@
+.t-search-inputs {
+	text-align: center;
+}
+
+.t-preview {
+	display: inline-block;
+	width: 20%;
+}
+
+/*.upper img {
+	height: 200px;
+}*/
+
+.lower {
+	height: 200px;
+	overflow: hidden;
+}
