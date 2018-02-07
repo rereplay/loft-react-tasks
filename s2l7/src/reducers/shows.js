@@ -4,6 +4,7 @@ import {
   showError,
   resetIsLoaded
 } from "../actions/showActions";
+import { handleActions } from 'redux-actions';
 
 const initState = {
   isLoading: true,
@@ -12,9 +13,9 @@ const initState = {
   error: false
 };
 
-export const shows = (state = initState, action) => {
-  switch (action.type) {
-    case showSuccess.toString():
+const shows = handleActions(
+  {
+    [showSuccess]: (state, action) => {
       return {
         ...state,
         isLoading: false,
@@ -22,7 +23,8 @@ export const shows = (state = initState, action) => {
         info: action.payload.info,
         error: false
       };
-    case showError.toString():
+    },
+    [showError]: (state, _) => {
       return {
         ...state,
         isLoading: false,
@@ -30,15 +32,16 @@ export const shows = (state = initState, action) => {
         info: {},
         error: true
       };
-    case resetIsLoaded.toString():
+    },
+    [resetIsLoaded]: (state, _) => {
       return {
         ...state,
         isLoaded: false,
         info: {}
       };
-    default:
-      return state;
-  }
-};
+    }
+  },
+  initState
+);
 
 export default shows;

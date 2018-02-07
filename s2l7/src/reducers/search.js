@@ -3,6 +3,7 @@ import {
   searchSuccess,
   searchError
 } from "../actions/searchActions";
+import { handleActions } from 'redux-actions';
 
 const initState = {
   matches: [],
@@ -10,29 +11,28 @@ const initState = {
   error: false
 };
 
-export const search = (state = initState, action) => {
-  switch (action.type) {
-    case searchRequest.toString():
-      return {
-        ...state,
-        isLoading: true
-      };
-    case searchSuccess.toString():
+const search = handleActions(
+  {
+    [searchRequest]: (state, _) => {
+      return { ...state, isLoading: true };
+    },
+    [searchSuccess]: (state, action) => {
       return {
         ...state,
         matches: action.payload.matches,
         isLoading: false,
         error: false
       };
-    case searchError.toString():
+    },
+    [searchError]: (state, _) => {
       return {
         ...state,
         isLoading: false,
         error: true
       };
-    default:
-      return state;
-  }
-};
+    }
+  },
+  initState
+);
 
 export default search;
