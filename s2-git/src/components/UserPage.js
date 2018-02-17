@@ -1,67 +1,63 @@
 import React from "react";
 import { connect } from "react-redux";
 import Followers from "./Followers";
-import { fetchUserRequest, fetchFollowersRequest } from "../actions/users";
+import Loader from "./Loader";
+import { fetchUserRequest } from "../actions/users";
+import "./User.css";
 
 function mapStateToProps(state) {
-  const { login, avatarUrl, info } = state.users;
-  const { followers } = state.followers;
+  const { login, avatarUrl, info, isLoaded, isError } = state.users;
   return {
-    isLoaded: false,
+    isLoaded: isLoaded,
+    isError: isError,
     login: login,
     avatarUrl: avatarUrl,
-    info: info,
-    followers: followers
+    info: info
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatchFetchUserRequest: (login) => {
+    dispatchFetchUserRequest: login => {
       dispatch(fetchUserRequest(login));
-    },
-    dispatchFetchFollowersRequest: (login) => {
-      dispatch(fetchFollowersRequest(login));
     }
   };
 }
 
 export class UserPage extends React.Component {
   componentDidMount() {
-    const {
-      isLoaded,
-      dispatchFetchUserRequest,
-      dispatchFetchFollowersRequest
-    } = this.props;
-
+    const { isLoaded, dispatchFetchUserRequest } = this.props;
     if (!isLoaded) {
       const urlLogin = this.props.location.pathname.split(/\//).pop();
       dispatchFetchUserRequest(urlLogin);
-      dispatchFetchFollowersRequest(urlLogin);
     }
   }
 
-  componentWillReceiveProps(props) {
-    const {
-      dispatchFetchUserRequest,
-      dispatchFetchFollowersRequest
-    } = this.props;
-
-    const urlLogin = props.location.pathname.split(/\//).pop();
-    dispatchFetchUserRequest(urlLogin);
-    dispatchFetchFollowersRequest(urlLogin);
+  componentWillReceiveProps(newProps) {
+    const { dispatchFetchUserRequest } = this.props;
+    const urlLogin = newProps.location.pathname.split(/\//).pop();
+    if (this.props.match.url !== newProps.match.url) {
+      dispatchFetchUserRequest(urlLogin);
+    }
   }
 
   render() {
-    console.log('1');
-    const { login, avatarUrl, info, followers, isLoaded } = this.props;
+    const { login, avatarUrl, info, isLoaded, isError } = this.props;
+    if (!isLoaded) return <Loader />;
+    if (isError) return <p>Ошибка</p>;
     return (
-      <div>
-        <h1>{login}</h1>
-        <img src={avatarUrl} alt="alt" />
-        <p>Followers: {info.followers}</p>
-        <p>Public repos: {info.publicRepos}</p>
-        <Followers followers={followers} />
+      <div className="user">
+        <div className="user__info">
+          <div className="user__info-image">
+            <img src={avatarUrl} alt="alt" />
+          </div>
+          <div className="user__info-text">
+            <h1>{login}</h1>
+            <p>Followers: {info.followers}</p>
+            <p>Public repos: {info.publicRepos}</p>
+          </div>
+        </div>
+        <Followers login={login} />
       </div>
     );
   }

@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import Login from "./Login";
 
@@ -10,6 +10,7 @@ export default class AppRouter extends React.Component {
         <PrivateRoute path="/user/dex157" />
         <PrivateRoute path="/user/:name" />
         <Route path="/login" component={Login} />
+        <Redirect from="*" to="/login" />
       </Switch>
     );
   }

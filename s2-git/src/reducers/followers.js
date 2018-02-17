@@ -1,16 +1,37 @@
 import { handleActions } from "redux-actions";
-import { fetchFollowersSuccess } from "../actions/users";
+import {
+  fetchFollowersRequest,
+  fetchFollowersSuccess,
+  fetchFollowersFailure
+} from "../actions/users";
 
 const initState = {
-  followers: []
+  followers: [],
+  isLoaded: false,
+  isError: false
 };
 
 const followers = handleActions(
   {
+    [fetchFollowersRequest]: (state, _) => {
+      return {
+        ...state,
+        isLoaded: false
+      }
+    },
     [fetchFollowersSuccess]: (state, action) => {
       return {
         ...state,
-        followers: action.payload
+        followers: action.payload,
+        isLoaded: true,
+        isError: false
+      };
+    },
+    [fetchFollowersFailure]: (state, _) => {
+      return {
+        ...state,
+        isLoaded: true,
+        isError: true
       };
     }
   },

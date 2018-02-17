@@ -1,0 +1,10 @@
+@keyframes loadrotate {
+    100% {transform: rotate(360deg);}
+}
+
+.loader {
+	transform: rotate(0deg);
+	animation-name: loadrotate;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
+}

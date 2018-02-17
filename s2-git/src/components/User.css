@@ -1,0 +1,11 @@
+.user {
+}
+
+.user__info-image, .user__info-text {
+	display: inline-block;
+	padding: 10px;
+}
+
+.user__info-image > img {
+	width: 200px;
+}
