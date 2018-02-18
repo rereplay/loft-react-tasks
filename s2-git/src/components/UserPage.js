@@ -27,10 +27,8 @@ function mapDispatchToProps(dispatch) {
 export class UserPage extends React.Component {
   componentDidMount() {
     const { isLoaded, dispatchFetchUserRequest } = this.props;
-    if (!isLoaded) {
-      const urlLogin = this.props.location.pathname.split(/\//).pop();
-      dispatchFetchUserRequest(urlLogin);
-    }
+    const urlLogin = this.props.location.pathname.split(/\//).pop();
+    dispatchFetchUserRequest(urlLogin);
   }
 
   componentWillReceiveProps(newProps) {
@@ -53,8 +51,8 @@ export class UserPage extends React.Component {
           </div>
           <div className="user__info-text">
             <h1>{login}</h1>
-            <p>Followers: {info.followers}</p>
-            <p>Public repos: {info.publicRepos}</p>
+            <p className='user__followers'>Followers: {info.followers}</p>
+            <p className='user__repos'>Public repos: {info.publicRepos}</p>
           </div>
         </div>
         <Followers login={login} />

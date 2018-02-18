@@ -1,7 +1,11 @@
 import { handleActions } from "redux-actions";
-import { fetchUserRequest, fetchUserSuccess, fetchUserFailure } from "../actions/users";
+import {
+  fetchUserRequest,
+  fetchUserSuccess,
+  fetchUserFailure
+} from "../actions/users";
 
-const initState = {
+export const initState = {
   avatarUrl: null,
   login: null,
   isLoaded: false,
@@ -14,11 +18,8 @@ const initState = {
 
 const users = handleActions(
   {
-    [fetchUserRequest]: (state, _) => {
-      return {
-        ...state,
-        isLoaded: false
-      }
+    [fetchUserRequest]: (_state, _action) => {
+      return initState;
     },
     [fetchUserSuccess]: (state, action) => {
       return {
@@ -31,14 +32,14 @@ const users = handleActions(
           followers: action.payload.data.followers,
           publicRepos: action.payload.data.public_repos
         }
-      }
+      };
     },
     [fetchUserFailure]: (state, _) => {
       return {
         ...state,
         isLoaded: true,
         isError: true
-      }
+      };
     }
   },
   initState

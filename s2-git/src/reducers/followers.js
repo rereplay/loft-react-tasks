@@ -5,7 +5,7 @@ import {
   fetchFollowersFailure
 } from "../actions/users";
 
-const initState = {
+export const initState = {
   followers: [],
   isLoaded: false,
   isError: false
@@ -13,11 +13,8 @@ const initState = {
 
 const followers = handleActions(
   {
-    [fetchFollowersRequest]: (state, _) => {
-      return {
-        ...state,
-        isLoaded: false
-      }
+    [fetchFollowersRequest]: (_state, _) => {
+      return initState;
     },
     [fetchFollowersSuccess]: (state, action) => {
       return {
