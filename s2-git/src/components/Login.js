@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { setToken } from "../actions/auth";
+import { authorize } from "../actions/auth";
 import { Redirect } from "react-router-dom";
 
 function mapStateToProps(state) {
@@ -11,8 +11,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatchSetToken: token => {
-      dispatch(setToken(token));
+    dispatchAuthorize: token => {
+      dispatch(authorize(token));
     }
   };
 }
@@ -29,7 +29,7 @@ export class Login extends React.Component {
   handleKeyDown = (event) => {
     if (event.keyCode === 13) {
       const token = this.state.value;
-      this.props.dispatchSetToken(token);
+      this.props.dispatchAuthorize(token);
     }
   };
 

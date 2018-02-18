@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import Followers from "./Followers";
 import Loader from "./Loader";
 import { fetchUserRequest } from "../actions/users";
+import { logout } from "../actions/auth";
 import "./User.css";
 
 function mapStateToProps(state) {
@@ -20,6 +21,9 @@ function mapDispatchToProps(dispatch) {
   return {
     dispatchFetchUserRequest: login => {
       dispatch(fetchUserRequest(login));
+    },
+    dispatchLogout: () => {
+      dispatch(logout());
     }
   };
 }
@@ -39,23 +43,30 @@ export class UserPage extends React.Component {
     }
   }
 
+  handleClick = () => {
+    this.props.dispatchLogout();
+  }
+
   render() {
     const { login, avatarUrl, info, isLoaded, isError } = this.props;
     if (!isLoaded) return <Loader />;
     if (isError) return <p>Ошибка</p>;
     return (
-      <div className="user">
-        <div className="user__info">
-          <div className="user__info-image">
-            <img src={avatarUrl} alt="alt" />
+      <div>
+        <button onClick={this.handleClick}>Logout</button>
+        <div className="user">
+          <div className="user__info">
+            <div className="user__info-image">
+              <img src={avatarUrl} alt="alt" />
+            </div>
+            <div className="user__info-text">
+              <h1>{login}</h1>
+              <p className="user__followers">Followers: {info.followers}</p>
+              <p className="user__repos">Public repos: {info.publicRepos}</p>
+            </div>
           </div>
-          <div className="user__info-text">
-            <h1>{login}</h1>
-            <p className='user__followers'>Followers: {info.followers}</p>
-            <p className='user__repos'>Public repos: {info.publicRepos}</p>
-          </div>
+          <Followers login={login} />
         </div>
-        <Followers login={login} />
       </div>
     );
   }

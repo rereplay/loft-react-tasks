@@ -1,5 +1,9 @@
 import { handleActions } from "redux-actions";
-import { setToken } from "../actions/auth";
+import { authorize, logout } from "../actions/auth";
+
+export const getIsAuthorized = () => {
+  return false;
+}
 
 const initState = {
   token: null
@@ -7,11 +11,17 @@ const initState = {
 
 const auth = handleActions(
   {
-    [setToken]: (state, action) => {
+    [authorize]: (state, action) => {
       return {
         ...state,
         token: action.payload
       };
+    },
+    [logout]: (state, _) => {
+      return {
+        ...state,
+        token: null
+      }
     }
   },
   initState
