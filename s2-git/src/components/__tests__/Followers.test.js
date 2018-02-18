@@ -1,63 +1,39 @@
 import React from "react";
-import Followers from "../Followers";
+import { Followers } from "../Followers";
 import Loader from "../Loader";
 import Follower from "../Follower";
-import { MemoryRouter } from "react-router-dom";
-import { shallow, mount } from "enzyme";
-import { Provider } from "react-redux";
-import configureStore from "redux-mock-store";
-
-const middlewares = [];
-const mockStore = configureStore(middlewares);
+import { shallow } from "enzyme";
 
 describe("Followers component", () => {
   it("checks definition of componentDidMount method", () => {
-    const store = mockStore({ followers: {} });
-    const wrapper = mount(
-      <Provider store={store}>
-        <Followers />
-      </Provider>
+    const wrapper = shallow(
+      <Followers dispatchFetchFollowersRequest={() => {}} />
     );
-    expect(wrapper.find(Followers).instance().componentDidMount).toBeDefined();
+    expect(wrapper.instance().componentDidMount).toBeDefined();
   });
 
   it("checks definition of componentWillReceiveProps method", () => {
-    const store = mockStore({ followers: {} });
-    const wrapper = mount(
-      <Provider store={store}>
-        <Followers />
-      </Provider>
+    const wrapper = shallow(
+      <Followers dispatchFetchFollowersRequest={() => {}} />
     );
-    expect(
-      wrapper.find(Followers).instance().componentWillReceiveProps
-    ).toBeDefined();
+    expect(wrapper.instance().componentWillReceiveProps).toBeDefined();
   });
 
   it("mounts Loader if followers are not loaded", () => {
-    const store = mockStore({ followers: { followers: [], isLoaded: false } });
-    const wrapper = mount(
-      <Provider store={store}>
-        <Followers />
-      </Provider>
+    const wrapper = shallow(
+      <Followers isLoaded={false} dispatchFetchFollowersRequest={() => {}} />
     );
     expect(wrapper.find(Loader)).toHaveLength(1);
   });
 
   it("checks amount of followers", () => {
-    const store = mockStore({
-      followers: {
-        followers: [1, 2, 3].map(login => {
-          return { login: login };
-        }),
-        isLoaded: true
-      }
-    });
-    const wrapper = mount(
-      <MemoryRouter>
-        <Provider store={store}>
-          <Followers />
-        </Provider>
-      </MemoryRouter>
+    const wrapper = shallow(
+      <Followers
+        isLoaded
+        isError={false}
+        dispatchFetchFollowersRequest={() => {}}
+        followers={[{ login: "1" }, { login: "2" }, { login: "50" }]}
+      />
     );
     expect(wrapper.find(Follower)).toHaveLength(3);
   });

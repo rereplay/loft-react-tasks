@@ -5,11 +5,12 @@ import Loader from "./Loader";
 import { fetchFollowersRequest } from "../actions/users";
 
 function mapStateToProps(state) {
+  const { followers, isLoaded, isError } = state.followers;
   return {
-    followers: state.followers.followers,
-    isLoaded: state.followers.isLoaded,
-    isError: state.followers.isError
-  }
+    followers: followers,
+    isLoaded: isLoaded,
+    isError: isError
+  };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -20,14 +21,14 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-class Followers extends React.Component {
+export class Followers extends React.Component {
   componentDidMount() {
-    const {dispatchFetchFollowersRequest, login} = this.props;
+    const { dispatchFetchFollowersRequest, login } = this.props;
     dispatchFetchFollowersRequest(login);
   }
 
   componentWillReceiveProps(newProps) {
-    const {dispatchFetchFollowersRequest, login} = newProps;
+    const { dispatchFetchFollowersRequest, login } = newProps;
     if (this.props.login !== newProps.login) {
       dispatchFetchFollowersRequest(login);
     }
