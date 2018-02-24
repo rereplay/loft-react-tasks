@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import Login from "./Login";

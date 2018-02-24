@@ -11,7 +11,6 @@ export default function*(fn, args) {
   } catch (error) {
     yield put(networkError(error));
     if (error.response.status === 401) yield put(logout());
-
     throw error;
   }
 }

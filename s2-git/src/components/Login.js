@@ -35,7 +35,7 @@ export class Login extends React.Component {
 
   render() {
     return this.props.token ? (
-      <Redirect from="/login" to="/user/dex157" />
+      <Redirect from="/login" to="/user/me" />
     ) : (
       <div>
         <input
