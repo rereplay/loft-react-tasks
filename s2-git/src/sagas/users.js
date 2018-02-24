@@ -11,7 +11,7 @@ export function* fetchUserSaga(action) {
   try {
     const handler =
       action.payload === "me" ? getTokenOwner : getUserInformation;
-    const user = yield call(request, getTokenOwner);
+    const user = yield call(request, handler, action.payload);
     yield put(fetchUserSuccess(user));
   } catch (error) {
     yield put(fetchUserFailure(error));

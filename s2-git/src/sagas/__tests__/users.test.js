@@ -1,6 +1,7 @@
 import { takeLatest, call, put } from "redux-saga/effects";
 import { fetchUserSaga } from "../users";
 import { getUserInformation, getTokenOwner } from "../../api";
+import request from '../request';
 import {
   fetchUserRequest,
   fetchUserSuccess,
@@ -14,7 +15,7 @@ describe("Users saga", () => {
 
       it("calls getUserInformation", () => {
         expect(saga.next().value).toEqual(
-          call(getUserInformation, "testpayload")
+          call(request, getUserInformation, "testpayload")
         );
       });
 
@@ -34,7 +35,7 @@ describe("Users saga", () => {
 
       it("calls getUserInformation", () => {
         expect(saga.next().value).toEqual(
-          call(getTokenOwner, "me")
+          call(request, getTokenOwner, "me")
         );
       });
 

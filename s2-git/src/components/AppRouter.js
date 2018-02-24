@@ -1,9 +1,16 @@
 import React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import Login from "./Login";
+import { connect } from 'react-redux';
 
-export default class AppRouter extends React.Component {
+function mapStateToProps(state) {
+  return {
+
+  };
+}
+
+export class AppRouter extends React.Component {
   render() {
     return (
       <Switch>
@@ -15,3 +22,7 @@ export default class AppRouter extends React.Component {
     );
   }
 }
+
+export default withRouter(connect(
+  mapStateToProps
+)(AppRouter))

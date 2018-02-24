@@ -19,7 +19,9 @@ export const initState = {
 const users = handleActions(
   {
     [fetchUserRequest]: (_state, _action) => {
-      return initState;
+      return {
+        ...initState
+      };
     },
     [fetchUserSuccess]: (state, action) => {
       return {

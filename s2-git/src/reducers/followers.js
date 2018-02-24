@@ -14,7 +14,9 @@ export const initState = {
 const followers = handleActions(
   {
     [fetchFollowersRequest]: (_state, _) => {
-      return initState;
+      return {
+        ...initState
+      };
     },
     [fetchFollowersSuccess]: (state, action) => {
       return {

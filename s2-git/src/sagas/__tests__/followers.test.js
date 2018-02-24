@@ -5,14 +5,20 @@ import {
   fetchFollowersSuccess,
   fetchFollowersFailure
 } from "../../actions/users";
+import request from "../request";
 import { getUserFollowers } from "../../api";
 
 describe("Followers saga", () => {
-  describe('when there are no errors', () => {
-    const saga = fetchFollowersSaga({ type: "testtype", payload: "testpayload" });
+  describe("when there are no errors", () => {
+    const saga = fetchFollowersSaga({
+      type: "testtype",
+      payload: "testpayload"
+    });
 
     it("calls getUserFollowers", () => {
-      expect(saga.next().value).toEqual(call(getUserFollowers, "testpayload"));
+      expect(saga.next().value).toEqual(
+        call(request, getUserFollowers, "testpayload")
+      );
     });
 
     it("puts fetchFollowersSuccess", () => {
@@ -26,11 +32,16 @@ describe("Followers saga", () => {
     });
   });
 
-  describe('when there are errors', () => {
-    const saga = fetchFollowersSaga({ type: "testtype", payload: "testpayload" });
+  describe("when there are errors", () => {
+    const saga = fetchFollowersSaga({
+      type: "testtype",
+      payload: "testpayload"
+    });
 
     it("calls getUserFollowers", () => {
-      expect(saga.next().value).toEqual(call(getUserFollowers, "testpayload"));
+      expect(saga.next().value).toEqual(
+        call(request, getUserFollowers, "testpayload")
+      );
     });
 
     it("puts fetchFollowersFailure", () => {
@@ -41,5 +52,5 @@ describe("Followers saga", () => {
     it("finishes", () => {
       expect(saga.next().done).toBeTruthy();
     });
-  })
+  });
 });

@@ -7,6 +7,5 @@ import request from './request';
 export default function*() {
   yield fork(authFlow);
   yield fork(fetchUserWatch);
-  // yield fork(fetchFollowersWatch);
-  yield fork(request);
+  yield fork(fetchFollowersWatch);
 }
