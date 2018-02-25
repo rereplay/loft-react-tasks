@@ -68,8 +68,11 @@ describe("request saga", () => {
           saga.next()
         } catch(e) {
           expect(e).toEqual(error)
-          expect(saga.done).toBeTruthy
         }
+      });
+
+      it('finishes', () => {
+        expect(saga.next().done).toBeTruthy()
       })
     });
 
@@ -99,7 +102,7 @@ describe("request saga", () => {
       })
 
       it('finishes', () => {
-        expect(saga.next().done).toBeTruthy
+        expect(saga.next().done).toBeTruthy()
       })
     });
   });
